@@ -7,7 +7,12 @@
     {
       "type": "gauge",
       "title": "Memory Utilization",
-      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 6 },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 6
+      },
       "targets": [
         {
           "expr": "mofa_memory_used_bytes / mofa_memory_budget_bytes * 100",
@@ -21,9 +26,18 @@
           "thresholds": {
             "mode": "absolute",
             "steps": [
-              { "color": "green", "value": null },
-              { "color": "orange", "value": 70 },
-              { "color": "red", "value": 90 }
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
             ]
           }
         }
@@ -32,7 +46,12 @@
     {
       "type": "timeseries",
       "title": "Memory Usage vs Budget",
-      "gridPos": { "x": 6, "y": 0, "w": 18, "h": 6 },
+      "gridPos": {
+        "x": 6,
+        "y": 0,
+        "w": 18,
+        "h": 6
+      },
       "targets": [
         {
           "expr": "mofa_memory_used_bytes",
@@ -43,12 +62,21 @@
           "legendFormat": "Budget"
         }
       ],
-      "fieldConfig": { "defaults": { "unit": "bytes" } }
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        }
+      }
     },
     {
       "type": "barchart",
       "title": "Model Loads (Last 5m)",
-      "gridPos": { "x": 0, "y": 6, "w": 8, "h": 8 },
+      "gridPos": {
+        "x": 0,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
       "targets": [
         {
           "expr": "sum(increase(mofa_model_loads_total[5m])) by (model)",
@@ -59,7 +87,12 @@
     {
       "type": "barchart",
       "title": "Model Unloads by Reason",
-      "gridPos": { "x": 8, "y": 6, "w": 8, "h": 8 },
+      "gridPos": {
+        "x": 8,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
       "targets": [
         {
           "expr": "sum(increase(mofa_model_unloads_total[5m])) by (reason)",
@@ -70,7 +103,12 @@
     {
       "type": "timeseries",
       "title": "Eviction Rate",
-      "gridPos": { "x": 16, "y": 6, "w": 8, "h": 8 },
+      "gridPos": {
+        "x": 16,
+        "y": 6,
+        "w": 8,
+        "h": 8
+      },
       "targets": [
         {
           "expr": "sum(rate(mofa_evictions_total[1m]))",
@@ -81,7 +119,12 @@
     {
       "type": "heatmap",
       "title": "Cold Load Duration Heatmap",
-      "gridPos": { "x": 0, "y": 14, "w": 24, "h": 8 },
+      "gridPos": {
+        "x": 0,
+        "y": 14,
+        "w": 24,
+        "h": 8
+      },
       "targets": [
         {
           "expr": "sum(rate(mofa_model_load_seconds_bucket[5m])) by (le)",
@@ -90,5 +133,6 @@
         }
       ]
     }
-  ]
+  ],
+  "uid": "engine-memory"
 }

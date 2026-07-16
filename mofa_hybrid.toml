@@ -3,7 +3,7 @@ host = "127.0.0.1"
 port = 8420
 
 [memory]
-budget_mb = 8192
+budget_mb = 16384
 idle_timeout_secs = 300
 
 [observability]
