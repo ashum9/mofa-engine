@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InferenceRequest",
+  "description": "JSON Schema for InferenceRequest verified against origin/engine mofa-kernel/src/types.rs.",
+  "type": "object",
+  "required": ["messages"],
+  "properties": {
+    "capability": {
+      "type": ["string", "null"],
+      "enum": ["chat", "tts", "asr", "image_gen", "video_gen", "vlm", "embedding", null],
+      "description": "Target capability to invoke."
+    },
+    "model": {
+      "type": ["string", "null"],
+      "description": "Canonical 'provider/model' ID or unique short model name."
+    },
+    "app_id": {
+      "type": ["string", "null"],
+      "description": "Application scope identifier."
+    },
+    "session_id": {
+      "type": ["string", "null"],
+      "description": "Session scope identifier."
+    },
+    "fallback_policy": {
+      "type": "string",
+      "enum": ["capability_only", "disabled", "allow_named"],
+      "default": "capability_only",
+      "description": "Fallback routing behavior strategy."
+    },
+    "locality": {
+      "type": "string",
+      "enum": ["auto", "prefer_local", "local_only"],
+      "default": "auto",
+      "description": "Routing locality guardrail. 'local_only' restricts to local hardware; 'prefer_local' ranks local ahead of cloud."
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "content"],
+        "properties": {
+          "role": { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "input_file": {
+      "type": ["string", "null"],
+      "description": "Path to input audio/video/image file on engine host."
+    },
+    "params": {
+      "type": "object",
+      "description": "Extra provider pass-through parameters."
+    },
+    "hint_next": {
+      "type": ["string", "null"],
+      "description": "Next anticipated capability for preflight warming."
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Correlation request ID."
+    }
+  }
+}
