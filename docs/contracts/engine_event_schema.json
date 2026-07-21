@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EngineEvent",
+  "description": "JSON schema for all 10 EngineEvent variants in MoFA Engine, verified against origin/engine mofa-kernel/src/types.rs.",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "model_status_changed",
+        "model_residency_changed",
+        "request_started",
+        "request_completed",
+        "memory_changed",
+        "model_evicted",
+        "preflight_warm_started",
+        "preflight_warm_completed",
+        "provider_health_changed",
+        "discovery_completed"
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "type": { "const": "model_status_changed" },
+        "model_id": { "type": "string" },
+        "old": { "type": "string" },
+        "new": { "type": "string" }
+      },
+      "required": ["type", "model_id", "old", "new"]
+    },
+    {
+      "properties": {
+        "type": { "const": "model_residency_changed" },
+        "model_id": { "type": "string" },
+        "old": { "type": "string" },
+        "new": { "type": "string" }
+      },
+      "required": ["type", "model_id", "old", "new"]
+    },
+    {
+      "properties": {
+        "type": { "const": "request_started" },
+        "request_id": { "type": "string" },
+        "capability": { "type": ["string", "null"] },
+        "model_id": { "type": "string" }
+      },
+      "required": ["type", "request_id", "model_id"]
+    },
+    {
+      "properties": {
+        "type": { "const": "request_completed" },
+        "request_id": { "type": "string" },
+        "duration_ms": { "type": "integer" },
+        "success": { "type": "boolean" }
+      },
+      "required": ["type", "request_id", "duration_ms", "success"]
+    },
+    {
+      "properties": {
+        "type": { "const": "memory_changed" },
+        "used_bytes": { "type": "integer" },
+        "total_bytes": { "type": "integer" }
+      },
+      "required": ["type", "used_bytes", "total_bytes"]
+    },
+    {
+      "properties": {
+        "type": { "const": "model_evicted" },
+        "model_id": { "type": "string" },
+        "reason": { "type": "string" }
+      },
+      "required": ["type", "model_id", "reason"]
+    },
+    {
+      "properties": {
+        "type": { "const": "preflight_warm_started" },
+        "model_id": { "type": "string" },
+        "source": { "type": "string" }
+      },
+      "required": ["type", "model_id", "source"]
+    },
+    {
+      "properties": {
+        "type": { "const": "preflight_warm_completed" },
+        "model_id": { "type": "string" },
+        "success": { "type": "boolean" }
+      },
+      "required": ["type", "model_id", "success"]
+    },
+    {
+      "properties": {
+        "type": { "const": "provider_health_changed" },
+        "provider": { "type": "string" },
+        "health": { "type": "string" }
+      },
+      "required": ["type", "provider", "health"]
+    },
+    {
+      "properties": {
+        "type": { "const": "discovery_completed" },
+        "provider": { "type": "string" },
+        "models": { "type": "integer" },
+        "success": { "type": "boolean" }
+      },
+      "required": ["type", "provider", "models", "success"]
+    }
+  ]
+}
